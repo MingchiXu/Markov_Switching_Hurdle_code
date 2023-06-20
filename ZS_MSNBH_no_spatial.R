@@ -469,6 +469,7 @@ for(i in 1:159){
     alpha3<- as.numeric(unlist(samps.ZSMSNBH.no.spatial[paste0("alpha3")]))
     alpha4<- as.numeric(unlist(samps.ZSMSNBH.no.spatial[paste0("alpha4")]))
     alpha5<- as.numeric(unlist(samps.ZSMSNBH.no.spatial[paste0("alpha5")]))
+    alpha6<- as.numeric(unlist(samps.ZSMSNBH.no.spatial[paste0("alpha6")]))
     alpha7<- as.numeric(unlist(samps.ZSMSNBH.no.spatial[paste0("alpha7")]))
     alpha8<- as.numeric(unlist(samps.ZSMSNBH.no.spatial[paste0("alpha8")]))
     alpha9<- as.numeric(unlist(samps.ZSMSNBH.no.spatial[paste0("alpha9")]))
@@ -491,7 +492,7 @@ for(i in 1:159){
     p01<- inv.logit(alpha1+alpha2*(HDI[i]-mean(HDI[1:159]))+
                       alpha3*(pop[i]-mean(pop[1:159]))+gamma1*(greenarea[i]-mean(greenarea[1:159])))
     
-    p11<- inv.logit(alpha4+alpha5*(HDI[i]-mean(HDI[1:159]))+
+    p11<- inv.logit(alpha4+alpha5*(HDI[i]-mean(HDI[1:159]))+ alpha6*(pop[i]-mean(pop[1:159]))+
                       alpha7*(log(cases[i,t-1]+1)-mlpsi)+gamma2*(greenarea[i]-mean(greenarea[1:159])))
     
     # waic
