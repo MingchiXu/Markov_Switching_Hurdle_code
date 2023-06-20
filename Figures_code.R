@@ -942,33 +942,42 @@ colnames(pred.compare.135.k0)<-c("time2","pred.zsmsnb","pred.zsmsnb.upper",
                                  "pred.zsmsnbh.upper","pred.zsmsnbh.lower")
 
 
+
 # ZSMSNB: 
-zsmsnb.135.pred.val<-ggplot(a1,aes(x=Time,y=district))+
-  geom_point()+
+pred.val.135<-ggplot(a1)+
+  geom_point(aes(x=Time,y=district))+
   geom_point(data=a2,aes(x=Time2,y=district2),shape=21)+
   # ZS-MSNB, pred and 95% CI
-  geom_line(data=pred.compare.135.k0,aes(x=time2,y=pred.zsmsnb),size=.8)+
-  geom_line(data=pred.compare.135.k0,aes(x=time2,y=pred.zsmsnb.upper), size=.8, linetype="longdash")+
-  geom_line(data=pred.compare.135.k0,aes(x=time2,y=pred.zsmsnb.lower), size=.8, linetype="longdash")+
+  geom_line(data=pred.compare.135.k0,aes(x=time2,y=pred.zsmsnb),size=.8, linetype='solid')+
+  # ZS-MSNBH, pred and 95% CI
+  geom_line(data=pred.compare.135.k0,aes(x=time2,y=pred.zsmsnbh),size=.8, linetype='longdash')+
+  geom_ribbon(data=pred.compare.135.k0,
+              aes(x=time2, ymin=pred.zsmsnb.lower, ymax=pred.zsmsnb.upper),color = "grey",
+              alpha=0.3)+
+  geom_ribbon(data=pred.compare.135.k0,
+              aes(x=time2, ymin=pred.zsmsnbh.lower, ymax=pred.zsmsnbh.upper),color = "grey36",
+              linetype='dotted', alpha=0.5, lwd=.6)+
   scale_x_date(breaks = datebreaks,labels=date_format("%b %Y"))+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5))+
   theme(text = element_text(size=15),
         strip.text.x = element_text(size=15),
         strip.text.y = element_text(size=15))+
-  ggtitle("(a) Vargem Pequena district, ZS-MSNB model")+
+  theme(plot.title = element_text(vjust=2.2))+
+  ggtitle("(a) Vargem Pequena district")+
   xlab('')+
   ylab('Cases')
 
 
 
 # states: 
-zsmsnb.135.state.ind<-ggplot(a1.states,aes(x=Time,y=states))+
+state.ind.135<-ggplot(a1.states,aes(x=Time,y=states))+
   geom_point()+
   geom_point(data=a2.states,aes(x=Time2,y=states2),shape=21)+
   # for ZS-MSNB
-  geom_line(data=pred.compare.135.k0,aes(x=time2,y=state.indicator),size=.8)+
-  
+  geom_line(data=pred.compare.135.k0,aes(x=time2,y=state.indicator),size=.8, linetype='solid')+
+  # for ZS-MSNBH
+  geom_line(data=pred.compare.135.k0,aes(x=time2,y=state.indicator.h),size=.8, linetype='longdash')+
   scale_x_date(breaks = datebreaks,labels=date_format("%b %Y"))+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5))+
@@ -981,59 +990,9 @@ zsmsnb.135.state.ind<-ggplot(a1.states,aes(x=Time,y=states))+
 
 
 
-zsmsnb.135.p<-plot_grid(zsmsnb.135.pred.val, 
-                        zsmsnb.135.state.ind, 
+ms.district.135<-plot_grid(pred.val.135, 
+                  state.ind.135, 
                         ncol = 1, nrow = 2, align="v")
-# combine them together later
-
-
-# ZSMSNBH: 
-
-
-
-zsmsnbh.135.pred.val<-ggplot(a1,aes(x=Time,y=district))+
-  geom_point()+
-  geom_point(data=a2,aes(x=Time2,y=district2),shape=21)+
-  # ZS-MSNBH, pred and 95% CI
-  geom_line(data=pred.compare.135.k0,aes(x=time2,y=pred.zsmsnbh),size=.8)+
-  geom_line(data=pred.compare.135.k0,aes(x=time2,y=pred.zsmsnbh.upper), size=.8, linetype="longdash")+
-  geom_line(data=pred.compare.135.k0,aes(x=time2,y=pred.zsmsnbh.lower), size=.8, linetype="longdash")+
-  scale_x_date(breaks = datebreaks,labels=date_format("%b %Y"))+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(text = element_text(size=15),
-        strip.text.x = element_text(size=15),
-        strip.text.y = element_text(size=15))+
-  ggtitle("(a) Vargem Pequena district, ZS-MSNBH model")+
-  xlab('')+
-  ylab('Cases')
-
-
-
-# states: 
-zsmsnbh.135.state.ind<-ggplot(a1.states,aes(x=Time,y=states))+
-  geom_point()+
-  geom_point(data=a2.states,aes(x=Time2,y=states2),shape=21)+
-  geom_line(data=pred.compare.135.k0,aes(x=time2,y=state.indicator.h),size=.8)+
-  scale_x_date(breaks = datebreaks,labels=date_format("%b %Y"))+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(text = element_text(size=15),
-        strip.text.x = element_text(size=15),
-        strip.text.y = element_text(size=15))+
-  scale_y_continuous(limits = c(0, 1))+
-  xlab('')+
-  ylab('Presence')
-
-
-zsmsnbh.135.p<-plot_grid(zsmsnbh.135.pred.val, 
-                         zsmsnbh.135.state.ind, 
-                         ncol = 1, nrow = 2, align="v")
-
-
-ms.district.135<-plot_grid(zsmsnb.135.p, zsmsnbh.135.p, 
-                           ncol = 1, nrow = 2, align="v")
-
 
 # For district No.150: 
 
@@ -1076,32 +1035,43 @@ colnames(pred.compare.150.k0)<-c("time2","pred.zsmsnb","pred.zsmsnb.upper",
                                  "pred.zsmsnbh.upper","pred.zsmsnbh.lower")
 
 
-# ZSMSNB: 
-zsmsnb.150.pred.val<-ggplot(b1,aes(x=Time,y=district))+
-  geom_point()+
+
+pred.val.150<-ggplot(b1)+
+  geom_point(aes(x=Time,y=district))+
   geom_point(data=b2,aes(x=Time2,y=district2),shape=21)+
   # ZS-MSNB, pred and 95% CI
-  geom_line(data=pred.compare.150.k0,aes(x=time2,y=pred.zsmsnb),size=.8)+
-  geom_line(data=pred.compare.150.k0,aes(x=time2,y=pred.zsmsnb.upper), size=.8, linetype="longdash")+
-  geom_line(data=pred.compare.150.k0,aes(x=time2,y=pred.zsmsnb.lower), size=.8, linetype="longdash")+
+  geom_line(data=pred.compare.150.k0,aes(x=time2,y=pred.zsmsnb),size=.8, linetype='solid')+
+  # ZS-MSNBH, pred and 95% CI
+  geom_line(data=pred.compare.150.k0,aes(x=time2,y=pred.zsmsnbh),size=.8, linetype='longdash')+
+  # ribbon 
+  geom_ribbon(data=pred.compare.150.k0,
+              aes(x=time2, ymin=pred.zsmsnb.lower, ymax=pred.zsmsnb.upper),color = "grey",
+              alpha=0.3)+
+  geom_ribbon(data=pred.compare.150.k0,
+              aes(x=time2, ymin=pred.zsmsnbh.lower, ymax=pred.zsmsnbh.upper),color = "grey36",
+              linetype='dotted', alpha=0.5, lwd=.6)+
+  
   scale_x_date(breaks = datebreaks,labels=date_format("%b %Y"))+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5))+
   theme(text = element_text(size=15),
         strip.text.x = element_text(size=15),
         strip.text.y = element_text(size=15))+
-  ggtitle("(b) Campo Grande district, ZS-MSNB model")+
+  theme(plot.title = element_text(vjust=2.2))+
+  ggtitle("(b) Campo Grande district")+
   xlab('')+
   ylab('Cases')
 
 
 
 # states: 
-zsmsnb.150.state.ind<-ggplot(b1.states,aes(x=Time,y=states))+
+state.ind.150<-ggplot(b1.states,aes(x=Time,y=states))+
   geom_point()+
   geom_point(data=b2.states,aes(x=Time2,y=states2),shape=21)+
   # for ZS-MSNB
-  geom_line(data=pred.compare.150.k0,aes(x=time2,y=state.indicator),size=.8)+
+  geom_line(data=pred.compare.150.k0,aes(x=time2,y=state.indicator),size=.8, linetype='solid')+
+  # for ZS-MSNBH
+  geom_line(data=pred.compare.150.k0,aes(x=time2,y=state.indicator.h),size=.8,linetype='longdash' )+
   scale_x_date(breaks = datebreaks,labels=date_format("%b %Y"))+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5))+
@@ -1114,60 +1084,13 @@ zsmsnb.150.state.ind<-ggplot(b1.states,aes(x=Time,y=states))+
 
 
 
-zsmsnb.150.p<-plot_grid(zsmsnb.150.pred.val, 
-                        zsmsnb.150.state.ind, 
+ms.district.150<-plot_grid(pred.val.150, 
+                        state.ind.150, 
                         ncol = 1, nrow = 2, align="v")
 
-# ZSMSNBH: 
+figure.4<-plot_grid(ms.district.135, ms.district.150, 
+          ncol = 1, nrow = 2, align="v")
 
-
-
-zsmsnbh.150.pred.val<-ggplot(b1,aes(x=Time,y=district))+
-  geom_point()+
-  geom_point(data=b2,aes(x=Time2,y=district2),shape=21)+
-  # ZS-MSNBH, pred and 95% CI
-  geom_line(data=pred.compare.150.k0,aes(x=time2,y=pred.zsmsnbh),size=.8)+
-  geom_line(data=pred.compare.150.k0,aes(x=time2,y=pred.zsmsnbh.upper), size=.8, linetype="longdash")+
-  geom_line(data=pred.compare.150.k0,aes(x=time2,y=pred.zsmsnbh.lower), size=.8, linetype="longdash")+
-  scale_x_date(breaks = datebreaks,labels=date_format("%b %Y"))+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(text = element_text(size=15),
-        strip.text.x = element_text(size=15),
-        strip.text.y = element_text(size=15))+
-  ggtitle("(b) Campo Grande district, ZS-MSNBH model")+
-  xlab('')+
-  ylab('Cases')
-
-
-
-# states: 
-zsmsnbh.150.state.ind<-ggplot(b1.states,aes(x=Time,y=states))+
-  geom_point()+
-  geom_point(data=b2.states,aes(x=Time2,y=states2),shape=21)+
-  geom_line(data=pred.compare.150.k0,aes(x=time2,y=state.indicator.h),size=.8)+
-  scale_x_date(breaks = datebreaks,labels=date_format("%b %Y"))+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(text = element_text(size=15),
-        strip.text.x = element_text(size=15),
-        strip.text.y = element_text(size=15))+
-  scale_y_continuous(limits = c(0, 1))+
-  xlab('')+
-  ylab('Presence')
-
-
-zsmsnbh.150.p<-plot_grid(zsmsnbh.150.pred.val, 
-                         zsmsnbh.150.state.ind, 
-                         ncol = 1, nrow = 2, align="v")
-
-
-ms.district.150<- plot_grid(zsmsnb.150.p, zsmsnbh.150.p, 
-                            ncol = 1, nrow = 2, align="v")
-
-
-figure.4<- plot_grid(ms.district.135, ms.district.150, 
-                     ncol = 2, nrow = 1, align="h")
 
 
 
