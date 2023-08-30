@@ -48,9 +48,9 @@ cases<-as.matrix(cases)
 
 
 
-####################################################################################
-####  Part I. Visualization of reported counts in two areas (No.1 and No.150) ######       
-####################################################################################
+###################################################################################
+####  Fig 1. Visualization of reported counts in two areas (No.1 and No.150) ######       
+###################################################################################
 
 # timeline
 ts.dates.l<-list()
@@ -108,9 +108,9 @@ figure.1
 
 
 
-######################################################################################
-#### Part II. NB approximation: derive a NB to approximate the count distribution  ###
-######################################################################################
+####################################################################################
+#### Fig 2. NB approximation: derive a NB to approximate the count distribution  ###
+####################################################################################
 
 
 p<- 0.1
@@ -259,9 +259,9 @@ figure.2
 
 
 
-#######################################################
-#            Part III. The endemic trend.             #
-#######################################################
+#####################################################
+#            Fig  3. The endemic rates.             #
+#####################################################
 
 
 # for ZS-MSNB model: 
@@ -560,9 +560,9 @@ figure.3
 
 
 
-###################################################################
-#### Part IV. Forecasting for two Markov switching models  ########
-###################################################################
+################################################################
+#### Fig 7. Forecasting for two Markov switching models  #######
+################################################################
 
 
 # prediction up to 231, mainly focus on two Markov Switching models 
@@ -606,7 +606,7 @@ samps.zsmsnbh<-data.frame(rbind(ZSMSNBH.samples[[1]],
 
 
 
-# ------------------- (B) Plot the prediction values for the two Markov switching models 
+# ------------------- (B) Fig 7: Plot the prediction values for the two Markov switching models 
 
 K0<- 8
 
@@ -1013,9 +1013,6 @@ b2.states<-data.frame(Time2=temp.series2,
                       states2=c(ts.dates.states[[150]][232:239]))
 
 
-
-
-
 pred.compare.150.k0<-data.frame(Time2=temp.series2,
                                 # ZSMSNB    
                                 simulated.pred.zsmsnb.k0[150,],
@@ -1088,14 +1085,14 @@ ms.district.150<-plot_grid(pred.val.150,
                         state.ind.150, 
                         ncol = 1, nrow = 2, align="v")
 
-figure.4<-plot_grid(ms.district.135, ms.district.150, 
+figure.7<-plot_grid(ms.district.135, ms.district.150, 
           ncol = 1, nrow = 2, align="v")
 
 
 
 
 #######################################################################
-###### Part V. Prediction vals for 5 mods vs. the actual cases  ######
+###### Fig 4. Prediction vals for 5 mods vs. the actual cases  ######
 #######################################################################
 K<- 4
 
@@ -1780,15 +1777,15 @@ pred.p150<- ggplot(b1,aes(x=Time,y=district))+
 pred.p150
 
 
-figure.5<-plot_grid(pred.p135, pred.p150, 
+figure.4<-plot_grid(pred.p135, pred.p150, 
                     ncol = 1, nrow = 2)
 
 
 
 
-#############################################################
-#####    Part VI.  For the rps comparison plot       ########   
-#############################################################
+###########################################################
+#####    Fig 5.  For the rps comparison plot       ########   
+###########################################################
 
 # 1. For NB model 
 NB.dta<- data.frame()
@@ -1911,7 +1908,7 @@ rps_p<- ggplot(data = rps.df.plt, aes(x=Time, y=rps.val, colour=Models))+
   theme(text = element_text(size=20),
         strip.text.x = element_text(size=20),
         strip.text.y = element_text(size=20))
-figure.6<-rps_p
+figure.5<-rps_p
 
 
 
