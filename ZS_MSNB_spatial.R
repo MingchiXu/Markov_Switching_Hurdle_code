@@ -716,3 +716,5 @@ round(mean(as.numeric(unlist(expit(samps.ZSMSNB[paste0("alpha1")])))),3)
 round(quantile(as.numeric(unlist(expit(samps.ZSMSNB[paste0("alpha1")]))), 0.025),3)
 round(quantile(as.numeric(unlist(expit(samps.ZSMSNB[paste0("alpha1")]))), 0.975),3)
 
+
+# this is the end
