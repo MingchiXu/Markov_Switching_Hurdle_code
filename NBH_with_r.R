@@ -451,8 +451,6 @@ for(i in 1:159){
   }
 }
 
-waic.nbh <- -2*(lppd.h.nbh-pwaic.h.nbh)
+waic.nbh <- -2*(lppd.h.nbh-pwaic.h.nbh) 
 
-
-
-
+# this is the end
