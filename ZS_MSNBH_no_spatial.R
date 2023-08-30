@@ -508,17 +508,4 @@ for(i in 1:159){
 
 waic.zsmsnbh.no.spatial <- -2*(lppd.h.no.spatial-pwaic.h.no.spatial)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# this is the end
