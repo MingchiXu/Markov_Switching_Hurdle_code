@@ -348,13 +348,4 @@ for(i in 1:159){
 
 waic.zinb <- -2*(lppd.zinb-pwaic.zinb)
 
-
-
-
-
-
-
-
-
-
-
+# this is the end
