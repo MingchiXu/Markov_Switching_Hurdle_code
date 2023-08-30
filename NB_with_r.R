@@ -301,16 +301,4 @@ for(i in 1:159){
 waic.nb <- -2*(lppd.nb-pwaic.nb)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# this is the end 
