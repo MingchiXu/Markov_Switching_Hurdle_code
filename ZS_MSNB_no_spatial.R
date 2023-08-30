@@ -295,9 +295,9 @@ load("/Users/xumingchi/Desktop/hurdle-codes/ZSMSNB_no_spatial.RData")# load the 
 
 
 
-#####################-------------
+##################################
 # WAIC for ZS-MSNB without spatial
-#####################-------------
+##################################
 
 library(rjags)
 
@@ -344,16 +344,6 @@ for(i in 1:159){
   }
 }
 
-waic.zinb.no.spatial <- -2*(lppd.z.no.spatial-pwaic.z.no.spatial)
+waic.zsmsnb.no.spatial <- -2*(lppd.z.no.spatial-pwaic.z.no.spatial)
 
-
-
-
-
-
-
-
-
-
-
-
+# this is the end
