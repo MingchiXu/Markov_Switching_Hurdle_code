@@ -79,8 +79,7 @@ dhurdleNegBinMarg <- nimbleFunction(
       logProb <- log(1-p)
     }else if(x>0){
       new.p<- r/(r+lambda)
-      logProb <- log(p)+ dnbinom(x, size=r ,prob= new.p, log=TRUE)
-      - log(1-(new.p)^r)
+      logProb <- log(p)+ dnbinom(x, size=r ,prob= new.p, log=TRUE)-pnbinom(q = 0,size = r,prob = new.p,lower.tail = FALSE,log.p = TRUE)
     }else{
       logProb <- -Inf
     }
@@ -91,7 +90,7 @@ dhurdleNegBinMarg <- nimbleFunction(
 #now the rhurdlePoisMarg
 rhurdleNegBinMarg <- nimbleFunction(
   run = function(n = integer(0),  p = double(0), lambda = double(0), r=double(0)) {
-    returnType(double(0))
+    returnType(integer(0))
     if(n != 1) print("rmixunif only allows n = 1; using n = 1.")
     
     xt <- rbinom(n=1,size=1,prob=p)
@@ -158,8 +157,7 @@ parallel_nimble <- function(dengeeData, dengeeConsts,
         logProb <- log(1-p)
       }else if(x>0){
         new.p<- r/(r+lambda)
-        logProb <- log(p)+ dnbinom(x, size=r ,prob= new.p, log=TRUE)
-        - log(1-(new.p)^r)
+        logProb <- log(p)+ dnbinom(x, size=r ,prob= new.p, log=TRUE) -pnbinom(q = 0,size = r,prob = new.p,lower.tail = FALSE,log.p = TRUE)
       }else{
         logProb <- -Inf
       }
@@ -170,7 +168,7 @@ parallel_nimble <- function(dengeeData, dengeeConsts,
   #now the rhurdlePoisMarg
   rhurdleNegBinMarg <- nimbleFunction(
     run = function(n = integer(0),  p = double(0), lambda = double(0), r=double(0)) {
-      returnType(double(0))
+      returnType(integer(0))
       if(n != 1) print("rmixunif only allows n = 1; using n = 1.")
       
       xt <- rbinom(n=1,size=1,prob=p)
